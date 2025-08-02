@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "If": {
       "main": [
@@ -346,7 +346,7 @@
     "templateId": "5898",
     "templateCredsSetupCompleted": true
   },
-  "name": "Automated n8n Workflow Backup to GitHub with Deletion Tracking",
+  "name": "N8n-Workflow-Backup-Github",
   "nodes": [
     {
       "parameters": {},
@@ -1159,9 +1159,32 @@
     "name": "N8n-Workflows"
   },
   "settings": {},
-  "staticData": null,
-  "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2025-08-02T12:04:45.000Z",
-  "versionId": "ea04e6a1-9a30-4370-a021-47904b6a2088"
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
+  "tags": [
+    {
+      "createdAt": "2025-08-02T11:19:28.993Z",
+      "updatedAt": "2025-08-02T11:19:28.993Z",
+      "id": "BP1AF3nGdhUqq2Lm",
+      "name": "Workflows"
+    },
+    {
+      "createdAt": "2025-08-02T11:19:20.182Z",
+      "updatedAt": "2025-08-02T11:19:20.182Z",
+      "id": "LfnrPkbGfPLRre0U",
+      "name": "Github"
+    },
+    {
+      "createdAt": "2025-08-02T11:19:24.132Z",
+      "updatedAt": "2025-08-02T11:19:24.132Z",
+      "id": "MwoJ96yk0ZjzO8Ln",
+      "name": "Backup"
+    }
+  ],
+  "triggerCount": 1,
+  "updatedAt": "2025-08-02T12:10:58.000Z",
+  "versionId": "ab17f2e4-0ff9-43d6-8e75-d99a1c8db595"
 }
