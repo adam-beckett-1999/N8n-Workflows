@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "Config": {
       "main": [
@@ -315,7 +315,6 @@
             "caseSensitive": true,
             "typeValidation": "strict"
           },
-          "combinator": "and",
           "conditions": [
             {
               "id": "bb64ed2c-5193-4b8f-a9e8-55cb83ea244c",
@@ -324,9 +323,10 @@
                 "operation": "afterOrEquals"
               },
               "leftValue": "={{ $json.updatedAt }}",
-              "rightValue": "={{ $now.minus(1, 'days') }}"
+              "rightValue": "={{ $now.minus(7, 'days') }}"
             }
-          ]
+          ],
+          "combinator": "and"
         },
         "options": {}
       },
@@ -338,36 +338,6 @@
         400
       ],
       "typeVersion": 2.2
-    },
-    {
-      "parameters": {
-        "content": "# Links\n- ## [Github Folder](https://github.com/AndrewBoichenko/n8n-workflows/)",
-        "height": 120,
-        "width": 400
-      },
-      "id": "3803f1ca-9296-46ce-8e35-01d8c5f9812c",
-      "name": "Sticky Note3",
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        368,
-        240
-      ],
-      "typeVersion": 1
-    },
-    {
-      "parameters": {
-        "content": "# How it works \nThis workflow will backup all instance workflows to GitHub every 24 hours.\n\nThe files are saved into folders using `repo_path` for the directory path and `ID.json` for the filename.\nThe Repo Owner, Repo Name and Main folder are set using the `Config` node in the subworkflow. \n\nThe workflow runs calls itself to help reduce memory usage, Once the workflow has completed it will send an optional notification to Slack.\n\nPlease check out my other items on [gumroad](https://boanse.gumroad.com/?section=k_Sn6LcT_dzJFnp5jmsM5A%3D%3D)\nYou might also like something else☺️",
-        "height": 340,
-        "width": 400
-      },
-      "id": "ea1096b7-ac85-41ef-98b9-88e2f50b9d44",
-      "name": "Sticky Note4",
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        368,
-        400
-      ],
-      "typeVersion": 1
     },
     {
       "parameters": {
@@ -649,9 +619,13 @@
   ],
   "pinData": {},
   "settings": {},
-  "staticData": null,
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrenceRules": []
+    }
+  },
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2025-08-02T11:11:09.000Z",
-  "versionId": "67a0f80c-183a-4456-83d2-aede323572fa"
+  "triggerCount": 1,
+  "updatedAt": "2025-08-02T11:15:09.000Z",
+  "versionId": "694fcc5d-edfc-47f8-b718-3f309a063bdc"
 }
