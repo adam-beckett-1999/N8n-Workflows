@@ -1,0 +1,114 @@
+{
+  "active": true,
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send Alert in Discord",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-02T11:48:37.130Z",
+  "id": "le6yQQKzOHovEcgL",
+  "isArchived": false,
+  "meta": {
+    "templateId": "5939",
+    "templateCredsSetupCompleted": true
+  },
+  "name": "N8n-Workflow-Error-Alerting",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "2652307a-9804-46d3-a8a1-a81a3021ac4c",
+      "name": "Error Trigger",
+      "type": "n8n-nodes-base.errorTrigger",
+      "position": [
+        368,
+        240
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "guildId": {
+          "__rl": true,
+          "value": "982441645201043456",
+          "mode": "list",
+          "cachedResultName": "Hyvecloud Lab",
+          "cachedResultUrl": "https://discord.com/channels/982441645201043456"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "1393916857957744670",
+          "mode": "list",
+          "cachedResultName": "service-alerts",
+          "cachedResultUrl": "https://discord.com/channels/982441645201043456/1393916857957744670"
+        },
+        "options": {},
+        "embeds": {
+          "values": [
+            {
+              "description": "={{ $json.execution.error.message }}\n\n{{ $json.execution.url }}",
+              "author": "N8n-Workflows",
+              "title": "={{ $json.workflow.name }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        592,
+        240
+      ],
+      "id": "cecb636c-2294-4d20-a41b-a51cdbc299de",
+      "name": "Send Alert in Discord",
+      "webhookId": "4c0da944-857c-4cc7-9cd1-80e6b967d446",
+      "credentials": {
+        "discordBotApi": {
+          "id": "M57pmgQdTuSopxil",
+          "name": "Discord Bot account"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "adam-beckett-1999",
+    "name": "N8n-Workflows"
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "createdAt": "2025-08-02T11:19:28.993Z",
+      "updatedAt": "2025-08-02T11:19:28.993Z",
+      "id": "BP1AF3nGdhUqq2Lm",
+      "name": "Workflows"
+    },
+    {
+      "createdAt": "2025-08-02T11:48:45.461Z",
+      "updatedAt": "2025-08-02T11:48:45.461Z",
+      "id": "ZpbSAA9Y4KkWf2pR",
+      "name": "Errors"
+    },
+    {
+      "createdAt": "2025-08-02T11:48:49.501Z",
+      "updatedAt": "2025-08-02T11:48:49.501Z",
+      "id": "ti944rheIbZsVzAx",
+      "name": "Alerting"
+    }
+  ],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-02T11:53:01.000Z",
+  "versionId": "8a56705c-3ece-4544-be09-18b1530c0335"
+}
