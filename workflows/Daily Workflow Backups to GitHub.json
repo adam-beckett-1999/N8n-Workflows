@@ -324,6 +324,16 @@
               },
               "leftValue": "={{ $json.updatedAt }}",
               "rightValue": "={{ $now.minus(7, 'days') }}"
+            },
+            {
+              "id": "426c1252-daf7-4c45-ab49-1ffbc8488f67",
+              "leftValue": "={{ $json.active }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
             }
           ],
           "combinator": "and"
@@ -645,6 +655,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-08-02T11:19:30.000Z",
-  "versionId": "2fdd1724-41e1-4298-8bbb-cc8a00fd818f"
+  "updatedAt": "2025-08-02T11:22:09.000Z",
+  "versionId": "ad131017-12cf-4d6a-a951-01ebdf6e39d0"
 }
