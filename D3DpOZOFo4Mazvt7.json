@@ -21,7 +21,7 @@
             "index": 0
           },
           {
-            "node": "Check if SSL-Checker.io is available",
+            "node": "Check SSL using SSL-Checker.io",
             "type": "main",
             "index": 0
           }
@@ -39,41 +39,11 @@
         ]
       ]
     },
-    "Check if SSL-Checker.io is available": {
-      "main": [
-        [
-          {
-            "node": "IF site available, then run SSL check",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        []
-      ]
-    },
     "Check SSL using SSL-Checker.io": {
       "main": [
         [
           {
             "node": "IF expiry is in less than 7 days, send message to discord",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "IF site available, then run SSL check": {
-      "main": [
-        [
-          {
-            "node": "Check SSL using SSL-Checker.io",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Site Unreachable",
             "type": "main",
             "index": 0
           }
@@ -191,29 +161,6 @@
     },
     {
       "parameters": {
-        "url": "http://ssl-checker.io/",
-        "options": {
-          "response": {
-            "response": {
-              "fullResponse": true
-            }
-          },
-          "timeout": 10000
-        }
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        2144,
-        768
-      ],
-      "id": "8037354d-0d19-46d3-b6cb-f9b7018ade33",
-      "name": "Check if SSL-Checker.io is available",
-      "alwaysOutputData": true,
-      "onError": "continueErrorOutput"
-    },
-    {
-      "parameters": {
         "url": "=https://ssl-checker.io/api/v1/check/{{ $json[\"property_url\"].replace(/^https?:\\/\\//, \"\").replace(/\\/$/, \"\") }}",
         "options": {}
       },
@@ -221,45 +168,12 @@
       "name": "Check SSL using SSL-Checker.io",
       "type": "n8n-nodes-base.httpRequest",
       "position": [
-        2592,
+        2144,
         768
       ],
       "typeVersion": 4.2,
       "retryOnFail": true,
       "maxTries": 5
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "e56a39dd-5d9c-462c-ac44-203fef685fb0",
-              "leftValue": "={{ $json.statusCode }}",
-              "rightValue": 200,
-              "operator": {
-                "type": "number",
-                "operation": "equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        2368,
-        768
-      ],
-      "id": "09b79bb6-6735-49c0-bd7f-ee1d71d84e48",
-      "name": "IF site available, then run SSL check"
     },
     {
       "parameters": {
@@ -285,8 +199,8 @@
       "name": "Send SSL Expiry info to Discord",
       "type": "n8n-nodes-base.discord",
       "position": [
-        3040,
-        768
+        2816,
+        752
       ],
       "webhookId": "6e1014b5-d89d-4939-a1f3-b74c280ae73b",
       "typeVersion": 2,
@@ -415,7 +329,7 @@
       "name": "IF expiry is in less than 7 days, send message to discord",
       "type": "n8n-nodes-base.if",
       "position": [
-        2816,
+        2368,
         768
       ],
       "typeVersion": 2.2
@@ -440,19 +354,6 @@
           "name": "SSH Password account"
         }
       }
-    },
-    {
-      "parameters": {
-        "errorMessage": "'http://ssl-checker.io/' currently unavailable"
-      },
-      "type": "n8n-nodes-base.stopAndError",
-      "typeVersion": 1,
-      "position": [
-        2592,
-        624
-      ],
-      "id": "a75a7bf4-3026-47c1-9bd2-a3a63412ed05",
-      "name": "Site Unreachable"
     }
   ],
   "origin": "n8n",
@@ -492,6 +393,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-08-04T09:43:30.000Z",
-  "versionId": "abc23db8-1599-493d-a5dd-e0bbf4af52c5"
+  "updatedAt": "2025-08-05T12:26:18.000Z",
+  "versionId": "4433dd4f-6094-4a3c-bd62-06c01bb36b23"
 }
