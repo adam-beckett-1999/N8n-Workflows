@@ -1,0 +1,363 @@
+{
+  "active": false,
+  "connections": {
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Message an assistant",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "TheVerge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TheVerge": {
+      "main": [
+        [
+          {
+            "node": "TheVerge Formatting",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TheVerge Formatting": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Message an assistant": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-08T17:07:04.061Z",
+  "id": "MOQLoQRjTQcaOXVo",
+  "isArchived": false,
+  "meta": {
+    "templateId": "4709",
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Daily News Digest: Summarize RSS Feeds with OpenAI and Deliver to WhatsApp",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "30d4f694-9378-42b4-b1d5-cbc38fb3e7fe",
+              "operator": {
+                "type": "dateTime",
+                "operation": "after"
+              },
+              "leftValue": "={{ $json.pubDate }}",
+              "rightValue": "={{ $today.minus({ days: 1 }) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "810a8040-2bfc-4125-9c5d-273e089a857c",
+      "name": "Filter",
+      "type": "n8n-nodes-base.filter",
+      "position": [
+        928,
+        720
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "numberInputs": 3
+      },
+      "id": "a9600807-9562-4ddc-a830-b18b81daffe4",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        704,
+        704
+      ],
+      "typeVersion": 3.1
+    },
+    {
+      "parameters": {
+        "maxItems": 10
+      },
+      "id": "2e096826-70ee-433c-b59b-477eec5c3905",
+      "name": "Limit",
+      "type": "n8n-nodes-base.limit",
+      "position": [
+        1152,
+        720
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "include": "specifiedFields",
+        "fieldsToInclude": "title, pubDate, content, link",
+        "options": {}
+      },
+      "id": "2910734f-73c3-45c5-9470-5a08868cd66e",
+      "name": "Aggregate",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        1376,
+        720
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "fda99f10-0a33-49f3-a46b-37d61567e851",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        32,
+        720
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {},
+      "id": "1b0fa8c7-bfd8-4267-b9ac-eb3c90b2160d",
+      "name": "No Operation, do nothing",
+      "type": "n8n-nodes-base.noOp",
+      "position": [
+        2176,
+        720
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "https://www.theverge.com/rss/index.xml",
+        "options": {
+          "ignoreSSL": false
+        }
+      },
+      "id": "31da3f86-a150-4cd4-83bd-57bcb348f7c3",
+      "name": "TheVerge",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "position": [
+        256,
+        720
+      ],
+      "typeVersion": 1.1,
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e2ffe594-180d-4e1d-b869-8056ac67015d",
+              "name": "title",
+              "type": "string",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "id": "87c5a171-9ab9-4043-a72a-32aec218fe63",
+              "name": "pubDate",
+              "type": "string",
+              "value": "={{ $json.pubDate }}"
+            },
+            {
+              "id": "978b05c9-6e6b-4a18-bc06-4de785b19413",
+              "name": "content",
+              "type": "string",
+              "value": "={{ $json['content'] }}"
+            },
+            {
+              "id": "74d4182d-2ef7-4aca-b327-3ec8f63b92a6",
+              "name": "link",
+              "value": "={{ $json.link }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "e439be05-1b9e-41a8-8814-c78a8b2a77d0",
+      "name": "TheVerge Formatting",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        480,
+        720
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "resource": "assistant",
+        "assistantId": {
+          "__rl": true,
+          "value": "asst_Oq5jaqr727ijj48GgZ41Cqp3",
+          "mode": "id"
+        },
+        "prompt": "define",
+        "text": "=I've received news articles via RSS. Please analyze them and provide a concise summary of the top main highlights. My goal is to get a quick overview of what's most relevant in these articles. Please include the source for each news article with the summary.\n1.{{ $json.data[0].title }}{{ $json.data[0].content }}{{ $json.data[0].link }}\n2.{{ $json.data[1].title }}{{ $json.data[1].content }}{{ $json.data[1].link }}\n3.{{ $json.data[2].title }}{{ $json.data[2].content }}{{ $json.data[2].link }}\n4.{{ $json.data[3].title }}{{ $json.data[3].content }}{{ $json.data[3].link }}\n5.{{ $json.data[4].title }}{{ $json.data[4].content }}{{ $json.data[4].link }}\n6.{{ $json.data[5].title }}{{ $json.data[5].content }}{{ $json.data[5].link }}\n7.{{ $json.data[6].title }}{{ $json.data[6].content }}{{ $json.data[6].link }}\n8.{{ $json.data[7].title }}{{ $json.data[7].content }}{{ $json.data[7].link }}\n9.{{ $json.data[8].title }}{{ $json.data[8].content }}{{ $json.data[8].link }}\n10.{{ $json.data[9].title }}{{ $json.data[9].content }}{{ $json.data[9].link }}",
+        "options": {}
+      },
+      "id": "39c8f94b-27ba-4676-9197-e87a493bcae6",
+      "name": "Message an assistant",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "position": [
+        1600,
+        720
+      ],
+      "typeVersion": 1.8,
+      "credentials": {
+        "openAiApi": {
+          "id": "brNgNHDpJUAKsMLj",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "guildId": {
+          "__rl": true,
+          "value": "982441645201043456",
+          "mode": "list",
+          "cachedResultName": "Hyvecloud Lab",
+          "cachedResultUrl": "https://discord.com/channels/982441645201043456"
+        },
+        "channelId": {
+          "__rl": true,
+          "value": "1403426777115922503",
+          "mode": "list",
+          "cachedResultName": "news-and-updates",
+          "cachedResultUrl": "https://discord.com/channels/982441645201043456/1403426777115922503"
+        },
+        "options": {},
+        "embeds": {
+          "values": [
+            {
+              "description": "={{ $json.output }}",
+              "author": "RSS News Feed",
+              "color": "#F86C08",
+              "timestamp": "={{ $('Schedule Trigger').item.json.timestamp }}",
+              "title": "Todays Top Stories"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.discord",
+      "typeVersion": 2,
+      "position": [
+        1952,
+        720
+      ],
+      "id": "02383812-6a6d-4229-a713-88ba4278e4ed",
+      "name": "Send a message",
+      "webhookId": "d5a1909d-5348-4ae2-85d3-e2f4726cb98a",
+      "credentials": {
+        "discordBotApi": {
+          "id": "M57pmgQdTuSopxil",
+          "name": "Discord Bot account"
+        }
+      }
+    }
+  ],
+  "origin": "n8n",
+  "pinData": {},
+  "repo": {
+    "owner": "adam-beckett-1999",
+    "name": "N8n-Workflows"
+  },
+  "settings": {},
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-08T17:47:41.000Z",
+  "versionId": "0fa19056-15e6-4029-b3b9-5ff48ceeca2d"
+}
